@@ -59,10 +59,12 @@ function rtmedia_author_profile_pic ( $show_link = true ) {
         if ( $show_link ) {
             echo "<a href='" . get_rtmedia_user_link ( $rtmedia_media->media_author ) . "' title='" . rtmedia_get_author_name ( $rtmedia_media->media_author ) . "'>";
         }
+        $type = 'thumb';
         $size = apply_filters ( "rtmedia_single_media_profile_picture_size", 90 );
+        if ($size > 50) { $type = 'full'; } 
         if ( function_exists ( "bp_get_user_has_avatar" ) ) {
-            if ( bp_core_fetch_avatar ( array( 'item_id' => $rtmedia_media->media_author, 'object' => 'user', 'no_grav' => false, 'html' => false ) ) != bp_core_avatar_default () ) {
-                echo bp_core_fetch_avatar ( array( 'item_id' => $rtmedia_media->media_author, 'object' => 'user', 'no_grav' => false, 'html' => true, 'width' => $size, 'height' => $size ) );
+            if ( bp_core_fetch_avatar ( array( 'item_id' => $rtmedia_media->media_author, 'object' => 'user', 'type' => $type, 'no_grav' => false, 'html' => false ) ) != bp_core_avatar_default () ) {
+                echo bp_core_fetch_avatar ( array( 'item_id' => $rtmedia_media->media_author, 'object' => 'user', 'type' => $type, 'no_grav' => false, 'html' => true, 'width' => $size, 'height' => $size ) );
             } else {
                 echo "<img src='" . bp_core_avatar_default () . "' width='" . $size . "'  height='" . $size . "'/>";
             }
